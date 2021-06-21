@@ -1,6 +1,7 @@
-# Forms
+Aprendendo Angular -- Forms
+Aprendendo a inserir código em repositório GIT
 
-Aprendi a postar GIT
+# Forms
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.1.
 
