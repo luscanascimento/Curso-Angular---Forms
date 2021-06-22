@@ -30,7 +30,9 @@ export class TemplateFormComponent implements OnInit {
     console.log(formulario);
     console.log(this.usuario);
   }
-  consultaCEP(cep: string, form) {
+  consultaCEP(cep: string, 
+    //form
+    ) {
     cep = cep.replace(/\D/g, '');
 
     //Verifica se campo cep possui valor informado
@@ -46,7 +48,7 @@ export class TemplateFormComponent implements OnInit {
           .subscribe((dados: any) => console.log(dados));
       }
     }
-    populaDadosForm(dados, form){
+    //populaDadosForm(dados, form){
 
     }
   }
