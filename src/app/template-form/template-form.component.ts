@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { NgxViacepService } from '@brunoc/ngx-viacep';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-template-form',
   templateUrl: './template-form.component.html',
@@ -13,7 +14,7 @@ export class TemplateFormComponent implements OnInit {
     email: null,
   };
 
-  constructor(_http: HttpClient) {}
+  constructor(private http: HttpClient, private cepService: NgxViacepService) {}
   ngOnInit() {}
 
   verificaValidTouched(campo: any) {
@@ -27,29 +28,42 @@ export class TemplateFormComponent implements OnInit {
     };
   }
   onSubmit(formulario: any) {
-    console.log(formulario);
-    console.log(this.usuario);
+    //console.log(formulario);
+    //console.log(this.usuario);
+    this.http
+      .post('https://httpbin.org/post', JSON.stringify(formulario.value))
+      .subscribe((dados: any) => {
+        console.log(dados);
+        formulario.form.reset();
+      });
   }
-  consultaCEP(cep: string, 
-    //form
-    ) {
+  consultaCEP(cep: string, formulario: any) {
     cep = cep.replace(/\D/g, '');
 
-    //Verifica se campo cep possui valor informado
     if (cep != '') {
-      //Expressão regular para validar o CEP
       var validacep = /^[0-9]{8}$/;
 
-      //Valida o formato do CEP.
       if (validacep.test(cep)) {
         this.http
-          .get('//viacep.com.br/ws/${cep}/json')
-          .map((dados: { json: () => any }) => dados.json())
-          .subscribe((dados: any) => console.log(dados));
+          .get(`https://viacep.com.br/ws/${cep}/json`)
+          .pipe(map((dados: any) => dados))
+          .subscribe((dados: any) => this.populaDadosForm(dados, formulario));
       }
     }
-    //populaDadosForm(dados, form){
-
-    }
+  }
+  populaDadosForm(dados: any, formulario: any) {
+    formulario.setValue({
+      nome: formulario.value.nome,
+      email: formulario.value.email,
+      endereco: {
+        cep: dados.cep,
+        numero: '',
+        complemento: dados.complemento,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        estado: dados.uf,
+        cidade: dados.localidade,
+      },
+    });
   }
 }

@@ -121,7 +121,7 @@
         name="rua"
         id="rua"
         placeholder="Nome"
-        [(ngModel)]="usuario.rua"
+        ngModel
         required
         #rua="ngModel"
       />
@@ -142,7 +142,7 @@
           <label for="bairro" class="control-label">Bairro</label>
           <input
             type="text"
-            placeholder="CEP"
+            placeholder="Bairro"
             class="form-control"
             id="bairro"
             name="bairro"
