@@ -14,8 +14,9 @@ export class TemplateFormComponent implements OnInit {
     email: null,
   };
 
-  constructor(private http: HttpClient, private cepService: NgxViacepService) {}
   ngOnInit() {}
+
+  constructor(private http: HttpClient, private cepService: NgxViacepService) {}
 
   verificaValidTouched(campo: any) {
     return !campo.valid && campo.touched;

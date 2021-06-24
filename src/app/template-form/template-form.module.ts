@@ -2,18 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TemplateFormComponent } from './template-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormDebugComponent } from '../form-debug/form-debug.component';
 import { NgxViacepModule, NgxViacepService } from '@brunoc/ngx-viacep';
-import { CampoControlErroComponent } from './../campo-control-erro/campo-control-erro.component';
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
-  declarations: [
-    FormDebugComponent,
-    CampoControlErroComponent,
-    TemplateFormComponent,
-  ],
+  declarations: [TemplateFormComponent],
 
   imports: [
     CommonModule,
@@ -22,6 +18,7 @@ import { CampoControlErroComponent } from './../campo-control-erro/campo-control
     HttpClientModule,
     ReactiveFormsModule,
     NgxViacepModule,
+    SharedModule,
   ],
 })
 export class TemplateFormModule {}
